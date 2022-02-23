@@ -1,0 +1,37 @@
+<h4 class="my-4">Formulario: Template-Driven</h4>
+
+<form #formulario="ngForm" (ngSubmit)="guardar(formulario)" id="formulario">
+    <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" name="nombre" [(ngModel)]="usuario.nombre" #nombre="ngModel" [ngClass]="{'is-invalid' : nombre.errors && nombre.touched}" minlength="5" required>
+        <small *ngIf="nombre.errors?.['required'] && (nombre.dirty || nombre.touched)" class="text-danger">El campo nombre es requerido</small>
+        <small *ngIf="nombre.errors?.['minlength'] && (nombre.dirty || nombre.touched)" class="text-danger">El campo nombre debe tener al menos 5 caracteres</small>
+    </div>
+    <div class="form-group">
+        <label>Apellido</label>
+        <input type="text" class="form-control" name="apellido" [(ngModel)]="usuario.apellido" #apellido="ngModel" [ngClass]="{'is-invalid' : apellido.errors && apellido.touched}" minlength="5" required>
+        <small *ngIf="apellido.errors?.['required'] && (apellido.dirty || apellido.touched)" class="text-danger">El campo apellido es requerido</small>
+        <small *ngIf="apellido.errors?.['minlength'] && (apellido.dirty || apellido.touched)" class="text-danger">El campo apellido debe tener al menos 5 caracteres</small>
+    </div>
+    <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input type="email" class="form-control" name="correo" [(ngModel)]="usuario.correo" #correo="ngModel" [ngClass]="{'is-invalid' : correo.errors && correo.touched}" required email>
+        <small *ngIf="correo.errors && (correo.dirty || correo.touched)" class="text-danger">El campo correo electrónico debe ser un correo válido</small>
+    </div>
+    <div class="form-group">
+        <label for="">País</label>
+        <select class="form-control" name="pais" [(ngModel)]="usuario.pais" #pais="ngModel">
+            <option value="" selected disabled>Seleccione un país</option>
+            <option *ngFor="let pais of paises" [value]="pais.codigo">{{pais.nombre}}</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+      <label for="">Archivo</label>
+      <input type="file" class="form-control-file" name="archivo" [(ngModel)]="usuario.archivo" #archivo="ngModel" (change)="seleccionarArchivo">
+      <small id="fileHelpId" class="form-text text-muted">Elige un archivo</small>
+    </div>
+    <button type="submit" class="btn btn-primary" form="formulario" [disabled]="!formulario.valid">Guardar</button>
+</form>
+
+<h5>¿Formulario válido? {{ formulario.valid }}</h5>
