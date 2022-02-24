@@ -1,0 +1,43 @@
+<h4 class="my-4">Formulario: Reactivo</h4>
+
+<form [formGroup]="formCliente" (ngSubmit)="guardar()" id="formulario">
+    <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" name="nombre" formControlName="nombre">
+        <small *ngIf="formCliente.get('nombre')?.touched && formCliente.get('nombre')?.errors" class="text-danger">
+            {{ formCliente.get('nombre')?.errors?.['required'] ? 'El nombre es requerido' : '' }}
+        </small>
+    </div>
+    <div class="form-group">
+        <label>Apellido</label>
+        <input type="text" class="form-control" name="apellido" formControlName="apellido">
+        <small *ngIf="formCliente.get('apellido')?.touched && formCliente.get('apellido')?.errors" class="text-danger">
+            {{ formCliente.get('apellido')?.errors?.['required'] ? 'El apellido es requerido' : '' }}
+        </small>
+    </div>
+    <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input type="email" class="form-control" name="correo" formControlName="correo">
+        <small *ngIf="formCliente.get('correo')?.touched && formCliente.get('correo')?.errors" class="text-danger">
+            {{ formCliente.get('correo')?.errors?.['required'] ? 'El correo es requerido' : '' }}
+            {{ formCliente.get('correo')?.errors?.['email'] ? 'El correo no es válido' : '' }}
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="">País</label>
+        <select class="form-control" name="pais" formControlName="pais">
+            <option value="" selected disabled>Seleccione un país</option>
+            <option *ngFor="let pais of paises" [value]="pais.codigo">{{pais.nombre}}</option>
+        </select>
+        <small *ngIf="formCliente.get('pais')?.touched && formCliente.get('pais')?.errors" class="text-danger">
+            {{ formCliente.get('pais')?.errors?.['required'] ? 'El país es requerido' : '' }}
+        </small>
+    </div>
+    <button type="submit" class="btn btn-primary" form="formulario">Guardar</button>
+</form>
+
+<h4 class="mt-5">Valor del form</h4>
+<pre>{{formCliente.value | json}}</pre>
+
+<h4>Valor del objeto usuario</h4>
+<pre>{{usuario | json}}</pre>
