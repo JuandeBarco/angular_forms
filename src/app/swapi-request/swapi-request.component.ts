@@ -6,7 +6,6 @@ export interface SwapiRequest {
   next: string;
   previous: string;
   results: any[];
-  vehicles: any[];
 }
 
 @Component({
@@ -21,10 +20,23 @@ export class SwapiRequestComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get('https://swapi.dev/api/people/1').subscribe((data : any) => {
+    this.http.get('https://swapi.dev/api/people').subscribe((data : any) => {
       console.log(data);
       this.swapiRequest = data;
-      console.log(this.swapiRequest.vehicles);
+    });
+  }
+
+  getNextPage() {
+    this.http.get(this.swapiRequest.next).subscribe((data : any) => {
+      console.log(data);
+      this.swapiRequest = data;
+    });
+  }
+
+  getPreviousPage() {
+    this.http.get(this.swapiRequest.previous).subscribe((data : any) => {
+      console.log(data);
+      this.swapiRequest = data;
     });
   }
 

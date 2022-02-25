@@ -1,3 +1,33 @@
+<div class="row justify-content-center">
+    <h1>Personajes de Star Wars</h1>
+</div>
+<div class="row justify-content-between px-3 my-4">
+    <button type="button" class="btn btn-primary" (click)="getPreviousPage()">Página anterior</button>
+    <button type="button" class="btn btn-primary" (click)="getNextPage()">Siguiente página</button>
+</div>
+<!-- Make a list of people -->
+<ul class="list-group">
+    <li *ngFor="let person of swapiRequest.results" class="list-group-item">
+        <!-- <a [routerLink]="['/people', person.url]">{{person.name}}</a> -->
+        <h3>{{person.name}}</h3>
+        <dl class="row mb-3">
+            <dt class="col-sm-3">Altura:</dt>
+            <!-- person.height from cm to meters -->
+            <dd class="col-sm-9">{{person.height / 100 | number:'1.2'}} m</dd>
+            <dt class="col-sm-3">Masa:</dt>
+            <dd class="col-sm-9">{{person.mass}}</dd>
+            <dt class="col-sm-3">Color de cabello:</dt>
+            <dd class="col-sm-9">{{person.hair_color}}</dd>
+            <dt class="col-sm-3">Género:</dt>
+            <dd class="col-sm-9">{{person.gender}}</dd>
+            <!-- <dt>
+                <a [routerLink]="['/planets', person.homeworld]">Homeworld</a>
+            </dt> -->
+        </dl>
+    </li>
+    <!-- next button -->
+</ul>
+
 <pre>
     {{swapiRequest | json}}
 </pre>
